@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent';
 
 if (!GEMINI_API_KEY) {
     console.warn('Warning: GEMINI_API_KEY not found in environment variables');
