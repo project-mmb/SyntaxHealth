@@ -53,6 +53,9 @@
         </div>
       
       <script>
+      const GEMINI_API_KEY = 'AIzaSyA-FifGcZ1mPVQaHdfhu_qegzp3yr5bTDg';
+      const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+      
       async function sendMessage() {
           const inputEl = document.getElementById('user-input');
           const input = inputEl.value.trim();
@@ -62,12 +65,21 @@
           inputEl.value = '';
           windowEl.scrollTop = windowEl.scrollHeight;
           try {
-            const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: input }) });
+            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [{ text: input }]
+                }]
+              })
+            });
             const data = await response.json();
             if (!response.ok) {
-              windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot ai-chat-error">Error: ' + escapeHtml(data.error || 'Unknown error') + '</div></div>';
+              windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot ai-chat-error">Error: ' + escapeHtml(data.error?.message || 'Unknown error') + '</div></div>';
             } else {
-              windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot">' + escapeHtml(data.reply || 'No reply.') + '</div></div>';
+              const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response from Gemini';
+              windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot">' + escapeHtml(reply) + '</div></div>';
             }
           } catch (e) {
             windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot ai-chat-error">Connection error: ' + escapeHtml(e.message) + '</div></div>';
