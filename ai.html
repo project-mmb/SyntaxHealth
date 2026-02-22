@@ -64,9 +64,13 @@
           try {
             const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: input }) });
             const data = await response.json();
-            windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot">' + escapeHtml(data.reply || 'No reply.') + '</div></div>';
+            if (!response.ok) {
+              windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot ai-chat-error">Error: ' + escapeHtml(data.error || 'Unknown error') + '</div></div>';
+            } else {
+              windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot">' + escapeHtml(data.reply || 'No reply.') + '</div></div>';
+            }
           } catch (e) {
-            windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot ai-chat-error">Could not get a response. Check your connection.</div></div>';
+            windowEl.innerHTML += '<div class="ai-chat-msg ai-chat-msg-bot"><div class="ai-chat-bubble ai-chat-bubble-bot ai-chat-error">Connection error: ' + escapeHtml(e.message) + '</div></div>';
           }
           windowEl.scrollTop = windowEl.scrollHeight;
       }
