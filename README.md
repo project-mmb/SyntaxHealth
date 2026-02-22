@@ -24,7 +24,7 @@ SyntaxHealth bridges the gap between raw medical data and intuitive visual under
 | :--- | :--- | :--- |
 | **Frontend** | HTML5, CSS3, JavaScript (ES6+) | Responsive UI and interactive SVG/Canvas visualization. |
 | **Backend/DB** | [Supabase](https://supabase.com/) | PostgreSQL database, Auth, and Real-time data syncing. |
-| **AI Engine** | [OpenAI API](https://openai.com/) | GPT-4o integration for medical data synthesis and predictive analysis. |
+| **AI Engine** | [Google Gemini API](https://ai.google.dev/) | Gemini integration for medical data synthesis and predictive analysis. |
 
 ---
 
@@ -34,7 +34,7 @@ SyntaxHealth bridges the gap between raw medical data and intuitive visual under
 
 1.  **Input:** User enters vitals or symptoms via the JS-based dashboard.
 2.  **Storage:** Data is securely sent to **Supabase** via Row Level Security (RLS) policies.
-3.  **Processing:** The application sends anonymized health markers to the **OpenAI API**.
+3.  **Processing:** The application sends anonymized health markers to the **Gemini API**.
 4.  **Feedback Loop:** The AI returns a risk assessment, which the frontend renders as a visual change (color coding, heatmaps) on the **Human Twin**.
 
 ---
@@ -43,7 +43,7 @@ SyntaxHealth bridges the gap between raw medical data and intuitive visual under
 
 ### Prerequisites
 * A [Supabase](https://supabase.com/) account and project.
-* An [OpenAI](https://platform.openai.com/) API key.
+* A [Google Gemini](https://ai.google.dev/) API key.
 * A local development server (e.g., Live Server for VS Code).
 
 ### Installation
@@ -60,7 +60,7 @@ SyntaxHealth bridges the gap between raw medical data and intuitive visual under
     export const ENV = {
       SUPABASE_URL: "[https://your-project-id.supabase.co](https://your-project-id.supabase.co)",
       SUPABASE_KEY: "your-anon-public-key",
-      OPENAI_API_KEY: "your-openai-api-key"
+      GEMINI_API_KEY: "your-gemini-api-key"
     };
     ```
 
