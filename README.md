@@ -73,4 +73,5 @@ SyntaxHealth bridges the gap between raw medical data and intuitive visual under
 
 * **Data Isolation:** Uses Supabase RLS to ensure users can only access their own "Twin" data.
 * **Encryption:** Data is encrypted in transit via SSL and at rest within the Supabase PostgreSQL instance.
-* **Anonymization:** No PII (Personally Identifiable Information) is sent to
+
+  ## To use the app simply click the link in the repo above releases.
